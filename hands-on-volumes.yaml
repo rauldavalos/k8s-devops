@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: hands-on-volumes
+spec:
+  containers:
+  - name: animals
+    image: supergiantkir/animals:bear
+    volumeMounts:
+    - name: hands-on-persistent-storage
+      mountPath: /storage
+  - name: springapp
+    image: yanivomc/spring-music:latest
+    volumeMounts:
+    - name: hands-on-persistent-storage
+      mountPath: /storage
+  volumes:
+  - name: hands-on-persistent-storage
+    hostPath:
+      path: /tmp/files
