@@ -51,7 +51,7 @@ spec:
                 - key: app
                   operator: In
                   values:
-                  - spring-music
+                  - ui
             topologyKey: topology.kubernetes.io/zone
       containers:
         - name: spring-music
