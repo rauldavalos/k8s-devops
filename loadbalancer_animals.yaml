@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: animals-app-bear
+  labels:
+    app: animals
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 100%
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: animals
+  template:
+    metadata:
+      labels:
+        app: animals
+    spec:
+      containers:
+        - name: bear
+          image: "supergiantkir/animals:bear"
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: animals-app-moose
+  labels:
+    app: animals
+spec:
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 100%
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: animals
+  template:
+    metadata:
+      labels:
+        app: animals
+    spec:
+      containers:
+        - name: moose
+          image: "supergiantkir/animals:moose"
+
+---
+
+kind: Service      # Create new service
+apiVersion: v1
+metadata:
+  name: animals-service # Name of the service
+spec:
+  type: LoadBalancer
+  selector:
+    app: animals
+  ports:          # Map incoming port to target port
+  - name: http-web    # Setting multiple ports listterns
+    protocol: TCP
+    port: 80
+    targetPort: 80
