@@ -6,9 +6,9 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: bear  
-  replicas: 1 
-  template: 
+      app: bear
+  replicas: 1
+  template:
     metadata:
       labels:
         app: bear
@@ -26,9 +26,9 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: moose  
+      app: moose
   replicas: 1
-  template: 
+  template:
     metadata:
       labels:
         app: moose
@@ -39,28 +39,30 @@ spec:
         ports:
         - containerPort: 80
 ---
-kind: Service      
-apiVersion: v1     
+kind: Service
+apiVersion: v1
 metadata:
-  name: bear-svc 
+  name: bear-svc
 spec:
+  type: ClusterIP
   selector:
-    app: bear   
-  ports:          
-  - name: http    
+    app: bear
+  ports:
+  - name: http
     protocol: TCP
     port: 80
     targetPort: 80
 ---
-kind: Service      
-apiVersion: v1     
+kind: Service
+apiVersion: v1
 metadata:
-  name: moose-svc 
+  name: moose-svc
 spec:
+  type: ClusterIP
   selector:
-    app: moose   
-  ports:          
-  - name: http    
+    app: moose
+  ports:
+  - name: http
     protocol: TCP
     port: 80
     targetPort: 80
