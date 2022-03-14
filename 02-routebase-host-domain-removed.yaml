@@ -18,7 +18,7 @@ spec:
   - host: "bear.52.215.163.122.nip.io"
     http:
       paths:
-      - path: /(/|$)(.*)
+      - path: /
         pathType: Prefix
         backend:
           service:
@@ -28,7 +28,7 @@ spec:
   - host: "moose.52.215.163.122.nip.io"
     http:
       paths:
-      - path: /(/|$)(.*)
+      - path: /
         pathType: Prefix
         backend:
           service:
