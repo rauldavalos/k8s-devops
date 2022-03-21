@@ -1,25 +1,36 @@
 #!/usr/bin/env bash
 
-echo "To create the 'spring-music' chart:"
+echo "Spring Music Chart"
+echo ""
+
+echo "Create the 'spring-music' chart template:"
 echo "   helm create spring-music"
 echo "   rm -rf spring-music/templates/*"
 echo "   rm -rf spring-music/values.yaml"
 
 echo ""
-echo "Create the following files with specific project's content"
+echo "Create project's specific content"
 echo "   spring-music/values.yaml"
 echo "   spring-music/templates/_helper.tpl"
 echo "   spring-music/templates/deployment.yaml"
 echo "   spring-music/templates/svc.yaml"
 
 echo ""
-
-echo "To install chart:"
+echo "Installing the project's chart:"
 echo "   helm install spring-music ./spring-music --set cluster=local"
 echo "   kubectl port-forward service/spring-music 8080:80 &"
 
 echo ""
-echo "Browse http://127.0.0.1.nip.io:8080/"
+echo "Upgrading the project's chart:"
+echo "   helm upgrade spring-music ./spring-music --set cluster=local"
 
 echo ""
-echo "Done"
+echo "Uninstalling the project's chart:"
+echo "   helm uninstall spring-music"
+
+echo ""
+echo "Accessing the application:"
+echo "   Browse http://127.0.0.1.nip.io:8080/"
+
+echo ""
+echo "Enjoy"
