@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Service
+metadata:
+  # name: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+  name: "{{ .Chart.Name }}{{ .Values.vesion }}"
+  labels:
+{{- include "spring.labels" . | nindent 4  }}
+spec:
+  selector:
+{{- include "spring.labels" . | nindent 3  }}
+
+# IF VALUES.ENV: LOCAL > TYPE: NODEPORT
+  {{ if eq .Values.cluster "local" }}
+  type: NodePort
+  {{ else }}
+  type: LoadBalancer
+  {{ end }}
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 8080

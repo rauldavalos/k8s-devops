@@ -1,0 +1,5 @@
+version: 0.0.1
+pods:
+  image: yanivomc/spring-music
+  tag: latest
+  replica: 2
