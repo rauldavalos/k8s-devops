@@ -1,0 +1,11 @@
+LAB1:
+1. Create StorageClass as described on slide 5
+    a. Create pvc size 1GB (If errors shown please fix…)
+        i. kubectl get storageclass
+        ii. kubectl get pv
+        iii. kubectl get pvc
+2. Create a deployment with yanivomc/spring-music:latest image
+    a. Replica set to 2
+    b. Use the PVC you created above as a mount place in your SPRING APP Pod
+    c. Make sure BOTH PODS now has a PV (kubectl get pv…..) make sure they RUN
+3. Commit it into your GITHUB and provide a link in our slide with the file
