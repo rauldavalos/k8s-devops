@@ -1,0 +1,125 @@
+    1  ls
+    2  git clone https://github.com/rauldavalos/k8s-devops.git
+    3  kubectl get storageclass
+    4  kubectl describe sc default
+    5  cd k8s-devops/session3/
+    6  kubectl apply -f 01-storage-class.yaml 
+    7  alias k=kubectl
+    8  k describe sc slow-io
+    9  k get sc
+   10  k apply 01-pvc.yml 
+   11  k apply -f 01-pvc.yml 
+   12  k describe pvc jb-claim
+   13  k delete -f 01-pvc.yml 
+   14  k apply -f 01-pvc.yml 
+   15  k describe pvc jb-claim
+   16  k delete 01-st
+   17  k delete 01-storage-class.yaml 
+   18  k delete -f 01-storage-class.yaml 
+   19  k apply -f 01-storage-class.yaml 
+   20  k delete -f 01-pvc.yml 
+   21  k apply -f 01-pvc.yml 
+   22  k describe pvc jb-claim
+   23  k apply -f 01-pod.yml 
+   24  k descibe pod nginx-pod
+   25  k describe pod nginx-pod
+   26  k exec -it  pod nginx-pod ash 
+   27  k exec -it nginx-pod ash 
+   28  k exec -it nginx-pod -- ash 
+   29  k exec -it nginx-pod bash
+   30  k apply -f 01-deployment.yaml 
+   31  k descibe deployment spring-music
+   32  k describe deployment spring-music
+   33  k get pods
+   34  k exec -it spring-music-7d9f9955b4-8gpss -- ash 
+   35  k exec -it spring-music-7d9f9955b4-pc9mt -- ash 
+   36  k exec -it nginx-pod bash
+   37  git config --global user.name "rauldavalos"
+   38  git status
+   39  git commit -m "20220324-lab01"
+   40  git push
+   41  k delete -f lab01/
+   42  cd lab02/
+   43  chmod +x setup.sh 
+   44  ./setup.sh 
+   45  kubectl apply -f .
+   46  kubectl apply -f 02-deployment-db.yaml
+   47  k get all
+   48  kubectl apply -f 02-deployment-db.yaml
+   49  kubectl apply -f 02-db-service.yaml 
+   50  k get svc
+   51  k get all
+   52  k delete -f 02-deployment-wordpress.yaml 
+   53  k get all
+   54  k apply -f .
+   55  k get all
+   56  k describe service/wordpress-service
+   57  k get all
+   58  k describe pod/wordpress-deployment-8477786d55-qphjq
+   59  k describe pod/wordpress-deployment-8477786d55-qwkzj
+   60  k get all
+   61  k describe pod/wordpress-deployment-8477786d55-qwkzj
+   62  k get all
+   63  k apply -f .
+   64  k get all
+   65  k describe service/wordpress-service
+   66  curl http://100.68.131.1
+   67  curl https://100.68.131.1
+   68  ping 100.68.131.1
+   69  k describe service/wordpress-service
+   70  k get sv -o wide
+   71  k get svc -o wide
+   72  ls -l
+   73  k get al
+   74  k get all
+   75  k exec -it pod/database-deployment-6f498ccd84-rbnql -- mysql
+   76  k exec -it pod/database-deployment-6f498ccd84-rbnql -- mysql -umysql
+   77  k exec -it pod/database-deployment-6f498ccd84-rbnql -- mysql -umysql -ppassword
+   78  k exec -it pod/database-deployment-6f498ccd84-rbnql -- bash
+   79  k get all
+   80  k logs -f pod/wordpress-deployment-8477786d55-qphjq
+   81  k delete -f 02-deployment-wordpress.yaml 
+   82  k get all
+   83  k apply -f 02-deployment-wordpress.yaml 
+   84  k get all
+   85  k logs -f pod/wordpress-deployment-755c6dc99c-cgdrn
+   86  k apply -f 02-db-service.yaml 
+   87  k get all
+   88  k logs -f pod/wordpress-deployment-755c6dc99c-cgdrn
+   89  k apply -f 02-db-service.yaml 
+   90  k get all
+   91  k delete -f 02-deployment-wordpress.yaml 
+   92  k apply -f 02-deployment-wordpress.yaml 
+   93  k get all
+   94  k logs -f pod/wordpress-deployment-755c6dc99c-k5tws
+   95  k delete -f 02-db-service.yaml 
+   96  k apply -f 02-db-service.yaml 
+   97  k delete -f 02-deployment-wordpress.yaml 
+   98  k apply -f 02-deployment-wordpress.yaml 
+   99  k get all
+  100  k logs -f pod/wordpress-deployment-755c6dc99c-7q6xz
+  101  k exec -it pod/database-deployment-6f498ccd84-rbnql -- bash
+  102  k get all
+  103  k logs -f pod/wordpress-deployment-755c6dc99c-7q6xz
+  104  k delete -f 02-deployment-wordpress.yaml 
+  105  k apply -f 02-deployment-wordpress.yaml 
+  106  k get all
+  107  k exec -it pod/wordpress-deployment-755c6dc99c-jvs64 -- bash
+  108  k exec -it pod/wordpress-deployment-755c6dc99c-jvs64 -- bash 
+  109  k get all
+  110  telnet 100.71.165.219 3306
+  111  k delete -f 02-deployment-wordpress.yaml 
+  112  k apply -f 02-deployment-wordpress.yaml 
+  113  k get all
+  114  k execx -it pod/wordpress-deployment-8477786d55-9nl5m -- bash
+  115  k exec -it pod/wordpress-deployment-8477786d55-9nl5m -- bash
+  116  k get all
+  117  k delete -f 02-deployment-wordpress.yaml 
+  118  k apply -f 02-deployment-wordpress.yaml 
+  119  k get all
+  120  k logs -f pod/wordpress-deployment-855f9f9b48-78qhp
+  121  git status
+  122  git commit -m "lab02 wordpress"
+  123  git push
+  124  k get endpoints
+  125  history > ../h_20220324.txt
