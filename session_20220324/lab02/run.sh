@@ -11,11 +11,6 @@ if [[ -z "${target_env}" || ! -d "${target_env}" ]]; then
     exit 1
 fi
 
-echo "+ Cleaning ${target_env}..."
-kubectl delete -f ${target_env}/.
-
-pause
-
 echo "+ Installing secrets..."
 kubectl apply -f ${target_env}/02-secrets.yaml
 echo "+ Installing Storage Class..."
