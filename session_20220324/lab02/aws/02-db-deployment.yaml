@@ -25,9 +25,9 @@ spec:
                 name: wordpress-secrets
                 key: db-password
         volumeMounts:
-        - mountPath: "/var/www/html"
+        - mountPath: "/var/lib/mysql"
           name: my-datavolume
       volumes:
       - name: my-datavolume
         persistentVolumeClaim:
-          claimName: db-claim
+          claimName: db-pvc
