@@ -1,0 +1,56 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/auth-url: "https://$host/oauth2/auth"
+    nginx.ingress.kubernetes.io/auth-signin: "https://$host/oauth2/start?rd=$escaped_request_uri"
+    nginx.ingress.kubernetes.io/rewrite-target: /$2 # We strip the prefix before it passes to our backend or our app wont load as it will get route /bears instead /
+
+  name: external-auth-oauth2
+
+spec:
+ ingressClassName: nginx
+ rules:
+  # change the IP below based on the DNS resolution of your LB (under kubectl get svc -n ingress-nginx)
+  - host: 127.0.0.1.nip.io
+    http:
+      paths:
+      - path: /moose(|$)(.*)
+        pathType: Exact
+        backend:
+          service:
+             name: moose-svc
+             port:
+                number: 80
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: oauth2-proxy
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: 127.0.0.1.nip.io
+    http:
+      paths:
+      - backend:
+          service:
+            name: oauth2-proxy
+            port:
+              number: 4180
+        path: /oauth2
+        pathType: Prefix
+  tls:
+  - hosts:
+    - 127.0.0.1.nip.io
+    # - 127.0.0.1.nip.io
+    # - 10.43.5.219.nip.io
+    # secretName: __INGRESS_SECRET__
+    #service/ingress-nginx-controller             NodePort    10.43.5.219     <none>        80:31834/TCP,443:30418/TCP
+    # http://127.0.0.1.nip.io:31834/moose/
+    # http://127.0.0.1.nip.io:31834/moose/
+    # https://127.0.0.1.nip.io:30418/moose/
+    # k get all -o wide -n ingress-nginx
+    # k get nodes -o wide
+    # https://127.0.0.1.nip.io:30418/oauth2/auth
