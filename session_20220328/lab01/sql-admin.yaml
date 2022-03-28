@@ -9,3 +9,9 @@ spec:
       - name: mysql
         image: mysql:5.7
         args: ["sleep", "36000"]
+        env:
+          - name: MYSQL_ROOT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: wordpress-secrets
+                key: db-password

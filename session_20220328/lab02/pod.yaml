@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-pod
+  labels:
+    app: 20220328-lab02
+    type: main
+spec:
+  containers:
+  - name: web-app
+    image: nginx:latest
+    # command: ['git', '-c', 'echo The app is running! && sleep 3600']
+    command: ['bash', '-c', 'echo The app is running! && sleep 3600']
+    # args: ["sleep", "36000"]
+    volumeMounts:
+    - name: cdn-volume
+      mountPath: /usr/share/nginx/html
+
+
+
+  initContainers:
+  - name: init-step1 # INIT 1
+    image: alpine/git:latest
+    # command: ['git', 'clone', '$(GITREPO)', '/cdn']
+    command: ['git']
+    args: ['clone', '$(GITREPO)', '/cdn']
+    env:
+      - name: GITREPO
+        valueFrom:
+          configMapKeyRef:
+            name: configuration-map
+            key: gitrepo
+    volumeMounts:
+    - name: cdn-volume
+      mountPath: /cdn
+
+
+  # - name: init-step2
+  #   image: busybox:1.28
+  #   command: ['sh', '-c', 'echo This is INIT STEP 2! && sleep 5']
+
+  volumes:
+  - name: cdn-volume
+    emptyDir: {}

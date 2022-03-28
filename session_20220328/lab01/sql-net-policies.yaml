@@ -16,7 +16,7 @@ spec:
           role: sqladmin
     - podSelector:
         matchLabels:
-          role: wordpress
+          app: wordpress
     ports:
     - protocol: TCP
       port: 3306

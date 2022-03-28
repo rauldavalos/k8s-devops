@@ -1,0 +1,30 @@
+    1  alias k=kubectl
+    2  k aply -f sql-net-policies.yaml 
+    3  k apply -f sql-net-policies.yaml 
+    4  ls -l
+    5  ssh ubuntu@34.245.165.169
+    6  vi ~/.k8s-rsa
+    7  cumod 400 ~/.k8s-rsa 
+    8  chmod 400 ~/.k8s-rsa 
+    9  ssh -i ~/.k8s-rsa ubuntu@34.245.165.169
+   10  k apply -f sql-net-policies.yaml 
+   11  k get all
+   12  k delete pod/wordpress-deployment-75c494f4b7-4jgsd
+   13  k delete pod/wordpress-deployment-75c494f4b7-x76tw
+   14  k get all
+   15  k exec -it pod/mysql-admin -- bash
+   16  k apply -f sql-net-policies.yaml 
+   17  k get svc
+   18  k get networkpolicies
+   19  k delete networkpolicies/sql-server-policies
+   20  k apply dm-ne e
+   21  k apply -f sql-net-policies.yaml 
+   22  k get networkpolicies
+   23  k describe networkpolicies
+   24  k get all
+   25  k describe pod/my-pod
+   26  k get configmap
+   27  k describe configuration-map
+   28  k describe configmap/configuration-map
+   29  k describe pod/my-pod
+   30  history > ../h_20220328.txt

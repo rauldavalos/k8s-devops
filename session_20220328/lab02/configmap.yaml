@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: configuration-map
+  labels:
+    app: 20220328-lab02
+data:
+  gitrepo: https://github.com/rauldavalos/k8s-devops.git

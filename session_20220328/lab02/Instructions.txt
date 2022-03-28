@@ -1,0 +1,22 @@
+C-INIT LAB
+https://github.com/yanivomc/seminars/blob/K8S/K8S/advanced/c-init/example/c-init.yaml
+
+
+1. Create a ConfigMap with the k/v source=https://YOURGITREPO
+    Store whatever image you wish under a specific folder or ROOT
+
+2. Create a Pod or a deployment Spec
+    2.1 In the init phase use image alpine/git:latest
+    2.2 Configure an EMPTYDIR volume and mount it as /cdn for the init container
+    2.3 Run (using “command” in your manifest) git clone $env? (the Env will be extracted from our config map) to the /cdn volume
+
+2. In the application container run the following
+    3.1 Image nginx:latest
+    3.2 mount our EmptyDir to /usr/share/nginx/html
+
+4. Create a svc type LOADBALANCER selector our POD
+
+LET'S SEE IT WORK in the browser!
+
+EX.
+command: [ “git”, “clone”, “$ENV” >>>> /cdn ]
