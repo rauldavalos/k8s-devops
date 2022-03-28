@@ -1,0 +1,134 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: slow-io
+provisioner: kubernetes.io/aws-ebs
+parameters:
+  type: io1
+  iopsPerGB: "100"
+  fsType: ext4
+
+---
+
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+ name: mysql-claim
+ annotations:
+   volume.beta.kubernetes.io/storage-class: "slow-io"
+spec:
+ accessModes:
+   - ReadWriteOnce
+ resources:
+   requests:
+     storage: 4Gi
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wordpress-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: wordpress
+  template:
+    metadata:
+      labels:
+        app: wordpress
+    spec:
+      containers:
+      - name: wordpress
+        image: wordpress:4-php7.0
+        ports:
+        - name: http-port
+          containerPort: 80
+        env:
+          - name: WORDPRESS_DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: wordpress-secrets
+                key: db-password
+          - name: WORDPRESS_DB_HOST
+            value: mysql-svc
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: wordpress-service
+spec:
+  ports:
+  - port: 31001
+    nodePort: 31001
+    targetPort: http-port
+    protocol: TCP
+  selector:
+    app: wordpress
+  type: LoadBalancer
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+      - name: mysql
+        image: mysql:5.7
+        args:
+          - "--ignore-db-dir=lost+found"
+        volumeMounts:
+          - mountPath: "/var/lib/mysql"
+            name: mysql-volume
+        ports:
+        - name: mysql-port
+          containerPort: 3306
+        env:
+          - name: MYSQL_ROOT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: wordpress-secrets
+                key: db-password
+      volumes:
+      - name: mysql-volume
+        persistentVolumeClaim:
+          claimName: mysql-claim
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-svc
+  labels:
+    app: mysql
+spec:
+  ports:
+  - port: 3306
+    protocol: TCP
+  selector:
+    app: mysql
+
+---
+
+apiVersion: v1
+kind: Secret
+metadata:
+  name: wordpress-secrets
+type: Opaque
+data:
+  db-password: cG9wb3ZhNA==

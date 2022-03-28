@@ -1,0 +1,14 @@
+LAB NETWORK POLICY
+Deploy our wordpress solution
+wget https://raw.githubusercontent.com/dell-alekseipopov/k8s-devops/966b0bc087bf525bdbee80f01d3a90900c5225f5/wordpress/wordpress.yaml
+Once it’s running (verify by browsing the LB)
+Create a new network policy named : blockedsql,yaml
+This should block all access to our MYSQL DB
+Make sure the application is failing and outputting unable to access DB
+Create a second network policy that will allow ONLY our frontends to communicate with our DB
+Run a 3rd pod that will try to connect to our MYSQL and fail (see next page)
+
+
+NETWORK POLICY EXAMPLE: 
+https://github.com/yanivomc/seminars/blob/K8S/K8S/advanced/network-policy/networkPolicy.yaml
+
