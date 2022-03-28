@@ -13,15 +13,10 @@ spec:
   - from:
     - podSelector:
         matchLabels:
+          role: sqladmin
+    - podSelector:
+        matchLabels:
           role: wordpress
     ports:
     - protocol: TCP
       port: 3306
-  - from:
-    - podSelector:
-        matchLabels:
-          role: sqladmin
-    ports:
-    - protocol: TCP
-      port: 3306
-
