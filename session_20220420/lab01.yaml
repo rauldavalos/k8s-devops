@@ -1,0 +1,29 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spring-music-deployment
+spec:
+  # here we select the number of pods we wish to start and the selector that
+  # tells our replica set which pods it needs to manage
+  replicas: 2
+  selector:  # Using the selector we tell our replicaset which pods to manage
+    matchLabels:
+      pod: spring-music-label
+  template:   # PODS Specs (k8s uses go template in the background)
+    metadata:
+      labels:
+        pod: spring-music-label
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: type
+                operator: In
+                values:
+                - frontends
+      containers:
+        - name: spring-music
+          image: "image: yanivomc/spring-music:latest"
