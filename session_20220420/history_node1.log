@@ -1,0 +1,39 @@
+ubuntu@ip-172-31-44-7:~$ history
+    1  curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+    2  sudo add-apt-repository    "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+   $(lsb_release -cs) \
+  stable"
+    3  curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+    4  cat << EOF | sudo tee /etc/apt/sources.list.d/kubernetes.list
+deb https://apt.kubernetes.io/ kubernetes-xenial main
+EOF
+
+    5  sudo apt-get update
+    6  sudo apt-get install -y docker-ce kubelet kubeadm kubectl
+    7  sudo apt-mark hold docker-ce kubelet kubeadm kubectl
+    8  echo "net.bridge.bridge-nf-call-iptables=1" | sudo tee -a /etc/sysctl.conf
+    9  sudo sysctl -p
+   10  cat << EOF | sudo tee /etc/docker/daemon.json
+{
+  "exec-opts": ["native.cgroupdriver=systemd"]
+}
+EOF
+
+   11  sudo systemctl restart docker && sudo docker ps
+   12  kubectl get nodes
+   13  kubeadm join 172.31.32.234:6443 --token hjlvf1.n0qo9i9wm5lee186         --discovery-token-ca-cert-hash sha256:b73179dfe202793f7f0c634c9b2501da63e6baecb4be6937bb2a475626a60183
+   14  kubectl get nodes
+   15  vi ~/.kube/config
+   16  kubectl get nodes
+   17  sudo kubeadm join 172.31.32.234:6443 --token hjlvf1.n0qo9i9wm5lee186         --discovery-token-ca-cert-hash sha256:b73179dfe202793f7f0c634c9b2501da63e6baecb4be6937bb2a475626a60183
+   18  kubectl get nodes
+   19  kubectl label nodes --help
+   20  sudo vim /etc/kubernetes/manifests/kube-controller-manager.yaml
+   21  sudo hostnamectl set-hostname "node1"
+   22  hostname
+   23  sudo hostnamectl set-hostname "ip-172-31-44-7"
+   24  hostname
+   25  sudo kubeadm join 172.31.32.234:6443 --token hjlvf1.n0qo9i9wm5lee186         --discovery-token-ca-cert-hash sha256:b73179dfe202793f7f0c634c9b2501da63e6baecb4be6937bb2a475626a60183
+   26  kubectl get all
+   27  sudo hostnamectl set-hostname "node1"
+   28  history

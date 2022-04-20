@@ -1,0 +1,156 @@
+{
+  "apiVersion": "v1",
+  "kind": "Node",
+  "metadata": {
+    "annotations": {
+      "flannel.alpha.coreos.com/backend-data": "{\"VNI\":1,\"VtepMAC\":\"be:7f:47:33:7c:8f\"}",
+      "flannel.alpha.coreos.com/backend-type": "vxlan",
+      "flannel.alpha.coreos.com/kube-subnet-manager": "true",
+      "flannel.alpha.coreos.com/public-ip": "172.31.42.52",
+      "kubeadm.alpha.kubernetes.io/cri-socket": "/var/run/dockershim.sock",
+      "node.alpha.kubernetes.io/ttl": "0",
+      "volumes.kubernetes.io/controller-managed-attach-detach": "true"
+    },
+    "creationTimestamp": "2022-04-20T14:41:35Z",
+    "labels": {
+      "beta.kubernetes.io/arch": "amd64",
+      "beta.kubernetes.io/os": "linux",
+      "kubernetes.io/arch": "amd64",
+      "kubernetes.io/hostname": "node2",
+      "kubernetes.io/os": "linux",
+      "type": "frontends"
+    },
+    "name": "node2",
+    "resourceVersion": "11044",
+    "uid": "718de628-13d5-4a4f-9b5c-8102ccf959c5"
+  },
+  "spec": {
+    "podCIDRs": [
+      "10.244.2.0/24"
+    ]
+  },
+  "status": {
+    "addresses": [
+      {
+        "address": "172.31.42.52",
+        "type": "InternalIP"
+      },
+      {
+        "address": "node2",
+        "type": "Hostname"
+      }
+    ],
+    "allocatable": {
+      "cpu": "4",
+      "ephemeral-storage": "18674826824",
+      "hugepages-1Gi": "0",
+      "hugepages-2Mi": "0",
+      "memory": "16105464Ki",
+      "pods": "110"
+    },
+    "capacity": {
+      "cpu": "4",
+      "ephemeral-storage": "20263484Ki",
+      "hugepages-1Gi": "0",
+      "hugepages-2Mi": "0",
+      "memory": "16207864Ki",
+      "pods": "110"
+    },
+    "conditions": [
+      {
+        "lastHeartbeatTime": "2022-04-20T15:06:52Z",
+        "lastTransitionTime": "2022-04-20T15:06:52Z",
+        "message": "Flannel is running on this node",
+        "reason": "FlannelIsUp",
+        "status": "False",
+        "type": "NetworkUnavailable"
+      },
+      {
+        "lastHeartbeatTime": "2022-04-20T16:11:02Z",
+        "lastTransitionTime": "2022-04-20T14:41:35Z",
+        "message": "kubelet has sufficient memory available",
+        "reason": "KubeletHasSufficientMemory",
+        "status": "False",
+        "type": "MemoryPressure"
+      },
+      {
+        "lastHeartbeatTime": "2022-04-20T16:11:02Z",
+        "lastTransitionTime": "2022-04-20T14:41:35Z",
+        "message": "kubelet has no disk pressure",
+        "reason": "KubeletHasNoDiskPressure",
+        "status": "False",
+        "type": "DiskPressure"
+      },
+      {
+        "lastHeartbeatTime": "2022-04-20T16:11:02Z",
+        "lastTransitionTime": "2022-04-20T14:41:35Z",
+        "message": "kubelet has sufficient PID available",
+        "reason": "KubeletHasSufficientPID",
+        "status": "False",
+        "type": "PIDPressure"
+      },
+      {
+        "lastHeartbeatTime": "2022-04-20T16:11:02Z",
+        "lastTransitionTime": "2022-04-20T14:41:56Z",
+        "message": "kubelet is posting ready status. AppArmor enabled",
+        "reason": "KubeletReady",
+        "status": "True",
+        "type": "Ready"
+      }
+    ],
+    "daemonEndpoints": {
+      "kubeletEndpoint": {
+        "Port": 10250
+      }
+    },
+    "images": [
+      {
+        "names": [
+          "yanivomc/spring-music@sha256:b444784822fb38b1fb32495da1942fcf9ef6071ed33de0b305ddafb289d649f0",
+          "yanivomc/spring-music:latest"
+        ],
+        "sizeBytes": 218458849
+      },
+      {
+        "names": [
+          "k8s.gcr.io/kube-proxy@sha256:c1f625d115fbd9a12eac615653fc81c0edb33b2b5a76d1e09d5daed11fa557c1",
+          "k8s.gcr.io/kube-proxy:v1.23.5"
+        ],
+        "sizeBytes": 112331922
+      },
+      {
+        "names": [
+          "rancher/mirrored-flannelcni-flannel@sha256:4bf659e449be809763b04f894f53a3d8610e00cf2cd979bb4fffc9470eb40d1b",
+          "rancher/mirrored-flannelcni-flannel:v0.17.0"
+        ],
+        "sizeBytes": 59803434
+      },
+      {
+        "names": [
+          "rancher/mirrored-flannelcni-flannel-cni-plugin@sha256:5dd61f95e28fa7ef897ff2fa402ce283e5078d334401d2f62d00a568f779f2d5",
+          "rancher/mirrored-flannelcni-flannel-cni-plugin:v1.0.1"
+        ],
+        "sizeBytes": 8098691
+      },
+      {
+        "names": [
+          "k8s.gcr.io/pause@sha256:3d380ca8864549e74af4b29c10f9cb0956236dfb01c40ca076fb6c37253234db",
+          "k8s.gcr.io/pause:3.6"
+        ],
+        "sizeBytes": 682696
+      }
+    ],
+    "nodeInfo": {
+      "architecture": "amd64",
+      "bootID": "7a45ffc0-90cf-46ab-ab83-0c3486c467bd",
+      "containerRuntimeVersion": "docker://20.10.14",
+      "kernelVersion": "5.4.0-1060-aws",
+      "kubeProxyVersion": "v1.23.5",
+      "kubeletVersion": "v1.23.5",
+      "machineID": "ec2dc7cec893f74b67ccab61267ed034",
+      "operatingSystem": "linux",
+      "osImage": "Ubuntu 18.04.6 LTS",
+      "systemUUID": "ec2dc7ce-c893-f74b-67cc-ab61267ed034"
+    }
+  }
+}

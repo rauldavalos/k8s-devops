@@ -3,6 +3,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: spring-music-deployment
+  labels:
+    app: spring-music
+    tier: frontend
 spec:
   # here we select the number of pods we wish to start and the selector that
   # tells our replica set which pods it needs to manage
@@ -14,6 +17,7 @@ spec:
     metadata:
       labels:
         pod: spring-music-label
+        app: spring-music
     spec:
       affinity:
         nodeAffinity:
@@ -24,6 +28,20 @@ spec:
                 operator: In
                 values:
                 - frontends
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                  - spring-music
+            topologyKey: kubernetes.io/hostname
       containers:
         - name: spring-music
-          image: "image: yanivomc/spring-music:latest"
+          image: "yanivomc/spring-music:latest"
+          # ports:
+          # - name: http-port
+          #   containerPort: 8080
+      nodeSelector:
+        type: frontend

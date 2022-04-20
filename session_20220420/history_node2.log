@@ -1,0 +1,42 @@
+ubuntu@ip-172-31-42-52:~$ history    1  curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+    2  sudo add-apt-repository    "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+   $(lsb_release -cs) \
+  stable"
+    3  curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+    4  cat << EOF | sudo tee /etc/apt/sources.list.d/kubernetes.list
+deb https://apt.kubernetes.io/ kubernetes-xenial main
+EOF
+
+    5  sudo apt-get update
+    6  sudo apt-get install -y docker-ce kubelet kubeadm kubectl
+    7  sudo apt-mark hold docker-ce kubelet kubeadm kubectl
+    8  echo "net.bridge.bridge-nf-call-iptables=1" | sudo tee -a /etc/sysctl.conf
+    9  sudo sysctl -p
+   10  cat << EOF | sudo tee /etc/docker/daemon.json
+{
+  "exec-opts": ["native.cgroupdriver=systemd"]
+}
+EOF
+
+   11  sudo systemctl restart docker && sudo docker ps
+   12  kubeadm join 172.31.32.234:6443 --token hjlvf1.n0qo9i9wm5lee186         --discovery-token-ca-cert-hash sha256:b73179dfe202793f7f0c634c9b2501da63e6baecb4be6937bb2a475626a60183
+   13  mkdir -p $HOME/.kube
+   14  vi ~/.kube/config
+   15  kubectl get nodes
+   16  kubectl get nodes --all-namespaces
+   17  sudo kubeadm join 172.31.32.234:6443 --token hjlvf1.n0qo9i9wm5lee186         --discovery-token-ca-cert-hash sha256:b73179dfe202793f7f0c634c9b2501da63e6baecb4be6937bb2a475626a60183
+   18  kubectl get nodes
+   19  | sudo tee /etc/apt/sources.list.d/kuber
+   20  sudo hostnamectl set-hostname "node2"
+   21  hostname
+   22  sudo hostnamectl set-hostname "ip-172-31-42-52"
+   23  hostname
+   24  sudo kubeadm join 172.31.32.234:6443 --token hjlvf1.n0qo9i9wm5lee186         --discovery-token-ca-cert-hash sha256:b73179dfe202793f7f0c634c9b2501da63e6baecb4be6937bb2a475626a60183
+   25  ifconfig
+   26  sudo hostnamectl set-hostname "node2"
+   27  kubeadm reset
+   28  sudo kubeadm reset
+   29  sudo rm -rf /etc/cni/net.d
+   30  rm /home/ubuntu/.kube/config
+   31  sudo kubeadm join 172.31.32.234:6443 --token hjlvf1.n0qo9i9wm5lee186         --discovery-token-ca-cert-hash sha256:b73179dfe202793f7f0c634c9b2501da63e6baecb4be6937bb2a475626a60183
+   32  history

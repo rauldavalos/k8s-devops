@@ -1,0 +1,268 @@
+    1  git config --global user.name "Raul Davalos"
+    2  git config --global user.email "raul_davalos@hotmail.com"
+    3  git config --global user.username "rauldavalos"
+    4  ssh-keygen -t rsa -C "raul_davalos@hotmail.com"
+    5  more .ssh/id_rsa.pub 
+    6  ssh git@github.com
+    7  git clone git@github.com:rauldavalos/k8s-devops.git
+    8  wget https://keys-amdocs.s3-eu-west-1.amazonaws.com/k8s-rsa
+    9  chmod 400 k8s-rsa
+   10  alias node1='ssh -i k8s-rsa ubuntu@35.86.179.225'
+   11  alias node2='ssh -i k8s-rsa ubuntu@35.88.41.181'
+   12  vi ~/.bashrc
+   13  curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+   14  sudo add-apt-repository    "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+   $(lsb_release -cs) \
+  stable"
+   15  curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+   16  cat << EOF | sudo tee /etc/apt/sources.list.d/kubernetes.list
+deb https://apt.kubernetes.io/ kubernetes-xenial main
+EOF
+
+   17  sudo apt-get update
+   18  sudo apt-get install -y docker-ce kubelet kubeadm kubectl
+   19  sudo apt-mark hold docker-ce kubelet kubeadm kubectl
+   20  echo "net.bridge.bridge-nf-call-iptables=1" | sudo tee -a /etc/sysctl.conf
+   21  sudo sysctl -p
+   22  cat << EOF | sudo tee /etc/docker/daemon.json 
+{
+  "exec-opts": ["native.cgroupdriver=systemd"]
+}
+EOF
+
+   23  sudo systemctl restart docker && sudo docker ps  
+   24  mkdir session_20220420
+   25  cd session_20220420/
+   26  ls
+   27  mkdir master
+   28  cd master/
+   29  cat << EOF | sudo tee kubeadm-config.yaml
+kind: ClusterConfiguration
+apiVersion: kubeadm.k8s.io/v1beta3
+kubernetesVersion: v1.23.5
+networking:
+  serviceSubnet: "10.96.0.0/16"
+  podSubnet: "10.244.0.0/24"
+---
+kind: KubeletConfiguration
+apiVersion: kubelet.config.k8s.io/v1beta1
+cgroupDriver: systemd
+
+EOF
+
+   30  sudo kubeadm init --config kubeadm-config.yaml
+   31  kubectl get all
+   32  kubectl get pods
+   33  kubectl get pods --all-namespaces
+   34  kubectl get nodes --all-namespaces
+   35  kubectl get pods -o wide --all-namespaces
+   36  vi ~/.bashrc
+   37  alias k="kubectl $@"
+   38  more ~/.kube/config 
+   39  sudo kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+   40  kubectl get pods -o wide --all-namespaces
+   41  docker ps
+   42  sudo docker ps
+   43  kubectl label nodes --helpectl
+   44  kubectl label nodes --help
+   45  #kubectl label node --help
+   46  k get nodes
+   47  kubectl label node --help
+   48  kubectl label nodes type: frontends
+   49  kubectl label nodes type frontends
+   50  kubectl label nodes --all type=frontends
+   51  kubectl label nodes --all type-
+   52  kubectl label nodes node/ip-172-31-44-7 type=frontends
+   53  kubectl label nodes ip-172-31-44-7 type=frontends
+   54  kubectl label nodes node/ip-172-31-42-52 type=frontends
+   55  kubectl label nodes ip-172-31-42-52 type=frontends
+   56  k describe nodes 
+   57  pwd
+   58  ls
+   59  cd ..
+   60  ls -l
+   61  ls
+   62  k apply -f lab01.yaml 
+   63  k get pods
+   64  k decribe pods
+   65  k describe pods
+   66  k get pods --all-namespaces
+   67  ls
+   68  cd master/
+   69  ls -l
+   70  more kubeadm-config.yaml 
+   71  k get pods -n kube-system
+   72  sudo vim /etc/kubernetes/manifests/kube-controller-manager.yaml
+   73  systemctl restart kubelet
+   74  sudo systemctl restart kubelet
+   75  k get pods -n kube-system
+   76  k delete pod/kube-flannel-ds-47mb2
+   77  k delete pod/kube-flannel-ds-47mb2 -n kube-system
+   78  k delete pod/kube-flannel-ds-ct7q7 -n kube-system
+   79  k get pods -n kube-system
+   80  k get pods -n kube-system -w
+   81  k get pods --all-namespaces
+   82  cat /run/flannel/subnet.env
+   83  k apply -f lab01.yaml 
+   84  cd ..
+   85  k apply -f lab01.yaml 
+   86  k delete-f lab01.yaml 
+   87  k delete -f lab01.yaml 
+   88  k apply -f lab01.yaml 
+   89  k get pods --all-namespaces
+   90  k describe pod/spring-music-deployment-7454c8696-7j2ng
+   91  k delete -f lab01.yaml 
+   92  k apply -f lab01.yaml 
+   93  k describe pod/spring-music-deployment-7454c8696-7j2ng
+   94  k descibe pods
+   95  k describe pods
+   96  wget 0:80
+   97  wget http://127.0.0.1
+   98  k apply -f lab01-service.yml 
+   99  k describe services
+  100  wget http://127.0.0.1
+  101  wget https://127.0.0.1
+  102  wget https://127.0.0.1:8080
+  103  k apply -f lab01-service.yml 
+  104  wget http://127.0.0.1:8080
+  105  k describe services
+  106  wget http://127.0.0.1:30168
+  107  k get allk
+  108  k get all
+  109  sudo vim /etc/kubernetes/manifests/kube-controller-manager.yaml
+  110  sudo systemctl restart kubelet
+  111  k get pods -n kube-system
+  112  k delete -f lab01.yaml 
+  113  k delete -f lab01-service.yml 
+  114  k apply -f lab01.yaml 
+  115  k apply -f lab01-service.yml 
+  116  k get all
+  117  wget http://127.0.0.1:8080
+  118  wget http://127.0.0.1:80
+  119  k delete -f lab01.yaml 
+  120  k delete -f lab01-service.yml 
+  121  k apply -f lab01*
+  122  ls
+  123  k get all
+  124  k apply -f lab01-deployment.yaml 
+  125  k apply -f lab01-service.yml 
+  126  k get all
+  127  sudo vim /etc/kubernetes/manifests/kube-controller-manager.yaml
+  128  kubectl patch node node1 -p '{"spec":{"podCIDR":"10.244.0.0/24"}}'
+  129  k get nodes
+  130  kubectl patch node ip-172-31-44-7 -p '{"spec":{"podCIDR":"10.244.0.0/24"}}'
+  131  git status
+  132  ls -l
+  133  cd master/
+  134  ls -l
+  135  vi kubeadm-config-with-networking.yaml
+  136  ls -l
+  137  sudo chown ubuntu:ubuntu kubeadm-config-with-networking.yaml 
+  138  ls -l
+  139  sudo vim /etc/kubernetes/manifests/kube-controller-manager.yaml
+  140  k apply -f kubeadm-config-with-networking.yaml 
+  141  sudo hostnamectl set-hostname "master"
+  142  hostname
+  143  k get nodes
+  144  sudo hostnamectl set-hostname "ip-172-31-32-234"
+  145  hostname
+  146  k get nodes
+  147  k get pods
+  148  k get all
+  149  k get all -o wide
+  150  k describe pods
+  151  k describe services
+  152  telnet 10.244.2.7 8080
+  153  GET /
+  154  k get svc
+  155  k get pods --all-namespaces
+  156  k expose deployment/spring-music-deployment --type NodePort --port 8080
+  157  k get svc
+  158  cd ..
+  159  k apply -f lab01-deployment.yaml 
+  160  k expose deployment/spring-music-deployment --help
+  161  ls -l
+  162  k get svc
+  163  k describe svc
+  164  k delete -f lab01-deployment.yaml 
+  165  k delete -f lab01-service.yml 
+  166  k apply -f lab01-deployment.yaml 
+  167  k get pods -o wide
+  168  k get svc
+  169  k describe svc/spring-music-deployment
+  170  kubectl patch node ip-172-31-44-7 -p '{"spec":{"podCIDR":"10.244.0.0/24"}}'
+  171  kubectl get node ip-172-31-44-7 -o json | jq 'del(.spec.podCIDR)'
+  172  sudo apt install jq
+  173  kubectl get node ip-172-31-44-7 -o json | jq 'del(.spec.podCIDR)'
+  174  NODE=ip-172-31-44-7
+  175  kubectl get node $NODE -o json | jq 'del(.spec.podCIDR)' |(kubectl delete node $NODE && kubectl create -f -)
+  176  cd master/
+  177  kubectl create -f node1.json 
+  178  k get nodes
+  179  kubectl get node ip-172-31-42-52 -o json | jq 'del(.spec.podCIDR)' > node2.json 
+  180  kubectl delete node ip-172-31-42-52
+  181  kubectl create -f node2.json 
+  182  k get nodes
+  183  k get svc
+  184  cat /run/flannel/subnet.env
+  185  kubeadm reset
+  186  k get all
+  187  k delete service/spring-music-deployment
+  188  cd ..
+  189  k apply -f lab01-service.yml 
+  190  k get all
+  191  kubectl patch node ip-172-31-44-7 -p '{"spec":{"podCIDR":"10.244.0.0/24"}}'
+  192  k get nodes
+  193  k get nodes -o wide
+  194  kubectl delete node ip-172-31-42-52
+  195  kubectl drain --delete-emptydir-data --force --ignore-daemonsets ip-172-31-44-7
+  196  k get nodes
+  197  kubectl delete node ip-172-31-44-7
+  198  cd master/
+  199  k apply -f node1.json 
+  200  k apply -f node2.json 
+  201  k get nodes
+  202  k getpods
+  203  k get pods
+  204  cd ..
+  205  k delete -f lab01-deployment.yaml 
+  206  k delete -f lab01-service.yml 
+  207  k apply -f lab01-deployment.yaml 
+  208  k apply -f lab01-service.yml 
+  209  k getall
+  210  k get all
+  211  k get endpoints
+  212  k getnodes
+  213  k get nodes
+  214  k get endpoints
+  215  k describe svc
+  216  k get pods -o wide
+  217  ls -l
+  218  k get pods -o wide
+  219  k get svc
+  220  k get pods -o wide
+  221  k delete pod/spring-music-deployment-5999c5894-7767p
+  222  k delete pod/spring-music-deployment-5999c5894-7767p --force
+  223  k delete pod/spring-music-deployment-5999c5894-kvrb2 --force
+  224  k get pods -o wide
+  225  k describe pod/spring-music-deployment-6cd9dd9fbb-mpvlr
+  226  k apply -f lab01-deployment.yaml 
+  227  k describe pods
+  228  k get nodes
+  229  k label nodes node2 type=frontends
+  230  k get nodes
+  231  k get pods -o wide
+  232  k delete pod/spring-music-deployment-65954f97b7-6qb7l
+  233  k get pods -o wide
+  234  cd ..
+  235  cd session_20220420/
+  236  k apply -f lab01-deployment.yaml 
+  237  k get pods -o wide
+  238  k delete pod/spring-music-deployment-5f6477ccd-6cdzs 
+  239  k get pods -o wide
+  240  k get all
+  241  k delete replicaset.apps/spring-music-deployment-5f6477ccd
+  242  k get all
+  243  k delete replicaset.apps/spring-music-deployment-5f6477ccd
+  244  k get all
+  245  history > history_master.log
