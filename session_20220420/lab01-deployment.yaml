@@ -20,14 +20,14 @@ spec:
         app: spring-music
     spec:
       affinity:
-        nodeAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            nodeSelectorTerms:
-            - matchExpressions:
-              - key: type
-                operator: In
-                values:
-                - frontends
+      #   nodeAffinity:
+      #     requiredDuringSchedulingIgnoredDuringExecution:
+      #       nodeSelectorTerms:
+      #       - matchExpressions:
+      #         - key: type
+      #           operator: In
+      #           values:
+      #           - frontends
         podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
           - labelSelector:
@@ -44,4 +44,4 @@ spec:
           # - name: http-port
           #   containerPort: 8080
       nodeSelector:
-        type: frontend
+        type: frontends
