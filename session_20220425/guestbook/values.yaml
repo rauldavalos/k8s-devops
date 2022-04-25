@@ -1,0 +1,8 @@
+replicas: 4
+repo: gcr.io/heptio-images
+image: ks-guestbook-demo
+tag: 0.2
+svc:
+  type: LoadBalancer
+  port: 8080
+  targetPort: 80
