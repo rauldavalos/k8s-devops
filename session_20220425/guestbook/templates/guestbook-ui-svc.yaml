@@ -3,10 +3,10 @@ kind: Service
 metadata:
   name: {{ .Release.Name }}-svc
 spec:
-  type:  {{ .Values.svc.type }}
+  type:  {{ .Values.service.type }}
   ports:
     - name: http
-      port: {{ .Values.svc.port }}
-      targetPort: {{ .Values.svc.targetPort }}
+      port: {{ .Values.service.port }}
+      targetPort: {{ .Values.service.targetPort }}
   selector:
     app: guestbook-ui
