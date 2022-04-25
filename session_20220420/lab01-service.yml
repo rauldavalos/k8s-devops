@@ -3,12 +3,12 @@ apiVersion: v1
 metadata:
   name: spring-music-service # Name of the service
 spec:
-  type: NodePort
-  # type: LoadBalancer
+  # type: NodePort
+  type: LoadBalancer
   selector:
     app: spring-music
   ports:          # Map incoming port to target port
-  - name: http-web    # Setting multiple ports listterns
+  - name: http-web    # Setting multiple ports listeners
     protocol: TCP
     port: 8080
     targetPort: 8080
