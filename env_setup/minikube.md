@@ -48,8 +48,14 @@ minikube delete -p davalos
 
 ## Windows forwarding of WSL port
 ```
-# netsh interface portproxy add v4tov4 listenport=443 listenaddress=0.0.0.0 connectport=443 connectaddress=127.0.0.1
+netsh interface portproxy add v4tov4 listenport=22 listenaddress=10.135.214.109 connectport=22 connectaddress=127.0.0.1
+netsh interface portproxy add v4tov4 listenport=80 listenaddress=10.135.214.109 connectport=80 connectaddress=127.0.0.1
 netsh interface portproxy add v4tov4 listenport=443 listenaddress=10.135.214.109 connectport=443 connectaddress=127.0.0.1
+netsh interface portproxy add v4tov4 listenport=8080 listenaddress=10.135.214.109 connectport=8080 connectaddress=127.0.0.1
+netsh interface portproxy add v4tov4 listenport=8081 listenaddress=10.135.214.109 connectport=8081 connectaddress=127.0.0.1
+netsh interface portproxy add v4tov4 listenport=8082 listenaddress=10.135.214.109 connectport=8082 connectaddress=127.0.0.1
+netsh interface portproxy add v4tov4 listenport=8083 listenaddress=10.135.214.109 connectport=8083 connectaddress=127.0.0.1
+netsh interface portproxy add v4tov4 listenport=8084 listenaddress=10.135.214.109 connectport=8084 connectaddress=127.0.0.1
 netsh interface ip show config
 netsh interface portproxy show all
 ```

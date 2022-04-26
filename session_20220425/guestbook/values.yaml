@@ -3,8 +3,8 @@ deployment:
   repo: gcr.io/heptio-images
   image: ks-guestbook-demo
   tag: 0.2
-  port: 80
+  port: 8080  # container port
 service:
   type: LoadBalancer
   port: 8080
-  targetPort: 80
+  targetPort: 8080  # container port
