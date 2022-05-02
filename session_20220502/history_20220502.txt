@@ -1,0 +1,93 @@
+    1  docker ps
+    2  sudo su - root
+    3  yum
+    4  sudo yum install docker
+    5  sudo curl -L "https://github.com/docker/compose/releases/download/1.25.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+    6  chmod +x /usr/local/bin/docker-compose
+    7  sudo chmod +x /usr/local/bin/docker-compose
+    8  docker-compose
+    9  docker ps
+   10  sudo su - root
+   11  service docker start
+   12  sudo service docker start
+   13  docker ps
+   14  sudo groupadd docker
+   15  sudo usermod -aG docker ${USER}
+   16  su -s ${USER}
+   17  docker ps
+   18  docker run hello-world
+   19  clear
+   20  docker ps
+   21  passwd
+   22  df -h
+   23  clear
+   24  vim .ssh/authorized_keys
+   :
+   :
+   50  cd session_20220502/
+   51  cd ..;git clone https://github.com/yanivomc/devopshift-seminars.git
+   52  ls -l
+   53  cd /home/ec2-user/devopshift-seminars/docker/day_2/12factor/multistage_build
+   54  cd devopshift-seminars/docker/day_2/12factor/multistage_build
+   55  git status
+   56  docker compose up -d
+   57  ls
+   58  ls -l
+   59  docker-compose up -d
+   60  ls -l
+   61  docker ps -a
+   62  ls -l
+   63  docker network ls
+   64  cd
+   65  cd k8s-devops/session_20220502/
+   66  ls -l
+   67  cd builder/
+   68  docker build -t builder:raul .
+   69  cd ../linter/
+   70  docker build -t linter:raul .
+   71  docker ps -a
+   72  docker run -d -p 5000:5000 --restart=always --name registry registry:2
+   73  docker ps -a
+   74  docker build -t linter:raul .
+   75  docker login
+   76  docker build -t linter:raul .
+   77  docker imagfes
+   78  docker images
+   79  docker images --help
+   80  docker images --no-trunc
+   81  cd ..
+   82  cd builder/
+   83  cker build -t builder:raul .
+   84  docker build -t builder:raul .
+   85  ls -l
+   86  docker build -t builder:raul .
+   87  ls -l
+   88  cp ~/k8s-devops/devopshift-seminars/docker/day_2/12factor/multistage_build/
+   89  cp -R ~/k8s-devops/devopshift-seminars/docker/day_2/12factor/multistage_build/flask-api .
+   90  docker build -t builder:raul .
+   91  cd ../linter/
+   92  docker build -t linter:raul .
+   93  docker login
+   94  docker build -t linter:raul .
+   95  ls
+   96  cd ..
+   97  ls
+   98  cd builder/
+   99  ls
+  100  cd ..
+  101  cp -R ~/k8s-devops/devopshift-seminars/docker/day_2/12factor/multistage_build .
+  102  ls -l
+  103  docker images
+  104  docker inspect builder:raul
+  105  docker inspect builder:raul | grep builder
+  106  cd builder/
+  107  docker build -t ci:raul .
+  108  cd ../multistage_build/
+  109  ls
+  110  ls -0l
+  111  ls -l
+  112  docker build -t ci:raul -f Dockerfile-pipelines .
+  113  docker build --network multistage_build_nexus -t ci:raul -f Dockerfile-pipelines .
+  114  docker build --network multistage_build_nexus -t raul:test -f Dockerfile-pipelines .
+  115  pwd
+  116  history > ../history_20220502.txt
