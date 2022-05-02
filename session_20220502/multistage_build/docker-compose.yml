@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  sonarqube:
+      image: sonarqube
+      restart: unless-stopped
+      ports:
+        - 0.0.0.0:9000:9000
+        - 0.0.0.0:9092:9092
+      networks:
+       - nexus
+networks:
+  nexus:
