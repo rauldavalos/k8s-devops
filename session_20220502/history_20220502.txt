@@ -91,3 +91,14 @@
   114  docker build --network multistage_build_nexus -t raul:test -f Dockerfile-pipelines .
   115  pwd
   116  history > ../history_20220502.txt
+  117  docker run -it -p 8080:8080 raul:test
+  118  docker build --network multistage_build_nexus -t ci:raul -f Dockerfile-pipelines .
+  119  docker run -it -p 8080:8080 raul:test
+  120  docker build --network multistage_build_nexus -t ci:raul -f Dockerfile-pipelines .
+  121  docker run -it -p 8080:8080 raul:test
+  122  docker run -it raul:test
+  123  docker build --network multistage_build_nexus -t ci:raul -f Dockerfile-pipelines .
+  124  docker run -it ci:raul
+  125  docker build --network multistage_build_nexus -t raul:test -f Dockerfile-pipelines .
+  126  docker run -it -p 8080:8080 raul:test
+  127  history
