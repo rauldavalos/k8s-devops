@@ -1,0 +1,80 @@
+    1  docker ps 
+    2  sudo su - root
+    3  yum
+    4  sudo yum install docker
+    5  sudo curl -L "https://github.com/docker/compose/releases/download/1.25.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+    6  chmod +x /usr/local/bin/docker-compose
+    7  sudo chmod +x /usr/local/bin/docker-compose
+    8  docker-compose 
+    9  docker ps 
+   10  sudo su - root
+   11  service docker start
+   12  sudo service docker start
+   13  docker ps 
+   14  sudo groupadd docker
+   15  sudo usermod -aG docker ${USER}
+   16  su -s ${USER}
+   17  docker ps 
+   18  docker run hello-world
+   19  clear
+   20  docker ps 
+   21  passwd 
+   22  df -h
+   23  clear
+   24  vim .ssh/authorized_keys
+   25  git status
+   26  sudo apt-get install git
+   27  sudo apt install git
+   28  more /etc/os-release 
+   29  sudo yum install git
+   30  git config --global user.name "Raul Davalos"
+   31  git config --global user.email "rauldavaloshernandez@gmail.com"
+   32  git config --global user.username "rauldavalos"
+   33  ssh-keygen -N "" -C "" -f ~/.ssh/git_rsa -t rsa -C "rauldavaloshernandez@gmail.com"
+   34  cat ~/.ssh/git_rsa.pub
+   35  echo -e "\n\
+   36  Host github.com\n\
+   37   HostName github.com\n\
+   38   IdentityFile ~/.ssh/git_rsa\n\
+   39  " >> ~/.ssh/config
+   40  ssh -i .ssh/git_rsa git@github.com
+   41  ssh -i ~/.ssh/git_rsa git@github.com
+   42  ping github.com
+   43  git clone git@github.com:rauldavalos/k8s-devops.git
+   44  ls -l
+   45  ssh -i .ssh/git_rsa git@github.com
+   46  sudo yum install git -y
+   47  git clone --branch advanced  https://github.com/yanivomc/docker-cicd.git
+   48  git clone https://github.com/rauldavalos/k8s-devops.git #https://github.com/yanivomc/docker-cicd.git
+   49  cd docker-cicd
+   50  cd
+   51  cd docker-cicd
+   52  cker-compose -f docker-compose-jenkins.yml  up -d
+   53  docker-compose -f docker-compose-jenkins.yml  up -d
+   54  docker-compose -f docker-compose-jenkins.yml up -d --scale jenkins-slave=2
+   55  docker-compose -f docker-compose-jenkins.yml up -d --scale jenkins-slave=3
+   56  docker ps -a
+   57  ll
+   58  git branch
+   59  git checkout master
+   60  git pull
+   61  ls -l
+   62  cd basics/
+   63  ls -l
+   64  cp Dockerfile ~/k8s-devops/session_20220518/
+   65  cd
+   66  git clone https://github.com/rauldavalos/docker-cicd.git
+   67  git clone https://github.com/rauldavalos/docker-cicd.git docker-cicd-rd
+   68  cd 
+   69  cd docker-cicd-rd/basics/
+   70  docker build -t rauldavalos/pipeline:latest -f Dockerfile 
+   71  docker build -t rauldavalos/pipeline:latest -f Dockerfile .
+   72  docker login
+   73  docker images
+   74  docker push rauldavalos/pipeline:latest
+   75  docker build -t rdavalos/multi-stage-pipeline:latest -f Dockerfile .
+   76  docker push rdavalos/multi-stage-pipeline:latest
+   77  cd ..
+   78  ls -l
+   79  cd ../k8s-devops/session_20220518
+   80  history > history_20220518.log
